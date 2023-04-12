@@ -60,7 +60,7 @@ It turns out that the most time consuming operation consists in reading the map,
 Run on an ordinary laptop, the throughput is of the order of 20 MB/s.
 
 **Batchwise Processing** <br/>
-Both scatter and gather distribute their workload on three threads:
+both scatter and gather distribute their workload on three threads:
 -	thread 1: reads a batch of shingles into memory (RAM)
 -	thread 2: from the shingle batch the thread produces a hash batch
 -	thread 3: the hash batch is mapped:<br/>
@@ -70,7 +70,7 @@ Both scatter and gather distribute their workload on three threads:
 With three containers, each containing a shingle- and the corresponding hash- batch, each scatter and gather, advances synchronously from stage to stage.
 
 ### Description
-A more detailed description is available on https://sites.google.com/view/repsieve
+A more detailed description will appear soon.
 
 ### LICENSE
 This project is released under [CC-BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).<br/>
