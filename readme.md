@@ -29,8 +29,7 @@ Based on the concepts:
 -	Fingerprint: the hash(b,m) value of a shingle, base b and modulus m are the parameters of the Rabin fingerprint.
 -	Diversification: to alleviate the **locality problem** of fingerprinting, the hashes are diversified as presented in our upcoming report.<br/>
 
-the general idea is to **eliminate those test shingles that have no matching fingerprint among the reference shingles.** <br/>
-Accordingly we define:
+the general idea is to **eliminate those test shingles that have no matching fingerprint among the reference shingles.**<br/> Accordingly we define:
 -	residue r 	: the set of remaining test shingles with matching fingerprints
 -	filtration ratio	: f= r/N,  N= NS - L + 1, the original number of test shingles.
 
