@@ -11,8 +11,7 @@ Given on auxiliary storage:
 -	a test data set containing a big string S, and
 -	a reference data set of a much smaller string s,<br/>
 
-find all cross-repetitions defined by those strings of lengths >= LP,<br/>
-which are substrings of both the reference and the test string.<br/>
+find all cross-repetitions defined by those strings of lengths >= LP, which are substrings of both the reference and the test string.<br/>
 A variant is LCS, the longest common substring problem.
 
 Reference and test string are composed of IID distributed byte sequences. 
@@ -22,14 +21,15 @@ is limited by the size of the available system memory (RAM)
 -	NS [bytes]: the length of the test string S, is orders of magnitudes bigger; <br/>
 its limitation is implied by the filtration ratio f, defined below.
 
-**The objective is to reduce big ‘common substring problems' to a more manageable size.**
+**The objective is to reduce big &nbsp;‘common substring problems'&nbsp; to a more manageable size.**
 
 Based on the concepts: 
 -	Shingle: the smallest information unit consists of a substring of length L that overlaps on L-1 bytes with the neighbors, like roof shingles.
 -	Fingerprint: the hash(b,m) value of a shingle, base b and modulus m are the parameters of the Rabin fingerprint.
 -	Diversification: to alleviate the ’locality’ drawback of fingerprinting, the hashes are diversified as presented in section 3 of the report.<br/>
 
-the general idea is to eliminate those test shingles that have no matching fingerprint among the reference shingles. Accordingly we define:
+**the general idea is to eliminate those test shingles that have no matching fingerprint among the reference shingles.** <br/>
+Accordingly we define:
 -	residue r 	: the set of remaining test shingles with matching fingerprints
 -	filtration ratio	: f= r/N,  N= NS - L + 1, the original number of test shingles.
 
