@@ -39,14 +39,14 @@ The project consists of three C++ programs.
 
 **A) master** <br/>
 generates on disk a long enough IID distributed byte sequence of minimum ns + NS bytes. The master disk file comprises the
--	reference data set (ns bytes) concatenated to the
+-	reference data set (ns bytes) concatenated with the
 -	test data set (NS bytes)
 
 Seamless shingling of the master file, requires that the reference data overlaps with the first L-1 bytes of the test data, so that
 -	the last reference shingle starts at position : ns - 1
 -	the first test shingle starts at position  : ns <br/>
 
-Because of this overlap, the test string appears lengthened by L-1 bytes in the present implementation.
+Because of this overlap, the reference string appears lengthened by L-1 bytes in the present implementation.
 
 **B) scatter** <br/>
 reads the reference data set (n= ns shingles), creates the fingerprint map and writes the result to the map file.<br/>
