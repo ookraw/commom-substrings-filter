@@ -49,13 +49,13 @@ Seamless shingling of the master file, requires that the reference data overlaps
 Because of this overlap, the reference string appears lengthened by L-1 bytes in the present implementation.
 
 **B) scatter** <br/>
-reads the reference data set (n= ns shingles), creates the fingerprint map and writes the result to the map file.<br/>
+reads the reference data (n= ns shingles), creates the fingerprint map and writes the result to the map file.<br/>
 The map can be viewed as a minimalistic hash table reduced to m one-bit slots.
 Scatter will mark those slots that correspond to the hash value modulo m (fingerprint) of the reference shingles.
 
 **C) gather** <br/>
 loads the map file into RAM, reads the big test data set (N= NS-L+1 shingles) and filters the test shingles by means of the map.<br/>
-It turns out that the most time consuming operation consists in reading the map, when the fingerprints of a large amount of test shingles are checked against the fingerprints of the reference shingles marked by the map.<br/>
+It turns out that the most time consuming operation consists in reading the map, when the fingerprints of a large amount of test shingles are checked via map against the fingerprints of the reference shingles.<br/>
 Run on an ordinary laptop, the throughput is of the order of 20 MB/s.
 
 **Batchwise Processing** <br/>
@@ -69,7 +69,7 @@ both scatter and gather distribute their workload on three threads:
 With three containers, each containing a shingle- and the corresponding hash- batch, each scatter and gather, advances synchronously from stage to stage.
 
 ### Description
-A more detailed description will appear soon.
+A more detailed write-up will appear soon.
 
 ### LICENSE
 This project is released under [CC-BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).<br/>
