@@ -20,7 +20,7 @@ Their lengths underlie certain restrictions:
 -	ns [bytes]: the length of the reference string s, <br/>
 is limited by the size of the available system memory (usually several giga bytes)
 -	NS [bytes]: the length of the test string S, is orders of magnitudes bigger; <br/>
-its limitation is implied by the filtration ratio f, defined below.
+its limitation is implied by the filtration ratio.
 
 **The objective is to reduce big &nbsp;‘common substring problems'&nbsp; to a more manageable size.**
 
