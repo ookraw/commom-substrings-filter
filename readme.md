@@ -26,14 +26,12 @@ its limitation is implied by the filtration ratio f, defined below.
 
 Based on the concepts: 
 -	Shingle: the smallest information unit consists of a substring of length L that overlaps on L-1 bytes with the neighbors, like roof shingles.
--	Fingerprint: the hash(b,m) value of a shingle, base b and modulus m are the parameters of the Rabin fingerprint.
+-	Fingerprint: the hash(b,m) value of a shingle, base b and modulus m are the parameters of the Rabin-Karp Rolling Hash (aka fingerprint).
 -	Diversification: to alleviate the **locality problem** of fingerprinting, the hashes are diversified as presented in our upcoming report.<br/>
 
-the general idea is to **eliminate those test shingles that have no matching fingerprint among the reference shingles.**<br/> Accordingly we define:
--	residue r 	: the set of remaining test shingles with matching fingerprints
--	filtration ratio	: f= r/N,  N= NS - L + 1, the original number of test shingles.
+the general idea is to **eliminate those test shingles that have no matching fingerprint among the reference shingles.**<br/> 
 
-### Implementation
+### Implementation 
 
 The project consists of three C++ programs.
 
@@ -42,7 +40,7 @@ generates on disk a long enough IID distributed byte sequence of minimum ns + NS
 -	reference data set (ns bytes) concatenated with the
 -	test data set (NS bytes)
 
-Seamless shingling of the master file, requires that the reference data overlaps with the first L-1 bytes of the test data, so that
+Seamless shingling of the master file, suggests that the reference data overlaps with the first L-1 bytes of the test data, so that
 -	the last reference shingle starts at position : ns - 1
 -	the first test shingle starts at position  : ns <br/>
 
@@ -63,10 +61,19 @@ both scatter and gather distribute their workload on three threads:
 -	thread 1: reads a batch of shingles into memory (RAM)
 -	thread 2: from the shingle batch the thread produces a hash batch
 -	thread 3: the hash batch is mapped:<br/>
-  &nbsp; -	scatter (write): map slots are marked free -> occupied <br/>
-  &nbsp; -	gather  (read) : map slots are checked free / occupied
+  &nbsp; -	scatter (write): map slots are marked free -> occupied suggests <br/>
+  &nbsp; -	gather  (read) : map slots are checked free / occupied <br/>
+  
+In the present implementation logical processor 3 is reserved for thread 3, which means that mapping always takes place within the same thread. <br/>
 
-With three containers, each containing a shingle- and the corresponding hash- batch, each scatter and gather, advances synchronously from stage to stage.
+Using three containers (a,b,c), each containing a shingle and the corresponding hash batch, scatter and gather advances stage by stage as illustrated by the example: <br/>
+
+workload processed in 5 batches on 7 stages <br/>
+thread 1 2 3 4 5 6 7       -> stage (time) <br/>
+&nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;         a b c a b <br/>
+&nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            a b c a b <br/>
+&nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;               a b c a b <br/>
+stage 4: the threads (1,2,3) are simultaneously busy with the batches in containers (a,c,b)<br/>
 
 ### Description
 A more detailed write-up will appear soon.
