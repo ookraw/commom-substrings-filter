@@ -64,7 +64,7 @@ both scatter and gather distribute their workload on three threads:
   &nbsp; -	scatter (write): map slots are marked free -> occupied suggests <br/>
   &nbsp; -	gather  (read) : map slots are checked free / occupied <br/>
   
-In the present implementation logical processor 3 is reserved for thread 3, which means that mapping always takes place within the same thread. <br/>
+In the present implementation logical processor 3 is reserved for thread 3, which guaranties that mapping takes place within the same thread. <br/>
 
 Using three containers (a,b,c), each containing a shingle and the corresponding hash batch, scatter and gather advances stage by stage as illustrated by the example: <br/>
 
@@ -73,7 +73,7 @@ thread 1 2 3 4 5 6 7       -> stage (time) <br/>
 &nbsp;&nbsp; 1 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;         a b c a b <br/>
 &nbsp;&nbsp; 2 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            a b c a b <br/>
 &nbsp;&nbsp; 3 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;               a b c a b <br/>
-stage 4: the threads (1,2,3) are simultaneously busy with the batches in containers (a,c,b)<br/>
+For example at stage 4 the threads (1,2,3) are simultaneously busy with the batches in containers (a,c,b). <br/>
 
 ### Description
 A more detailed write-up will appear soon.
