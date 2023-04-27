@@ -26,7 +26,7 @@ its limitation is implied by the filtration ratio.
 
 Based on the concepts: 
 -	Shingle: the smallest information unit consists of a substring of length L that overlaps on L-1 bytes with the neighbors, like roof shingles.
--	Fingerprint: the hash(b,m) value of a shingle, base b and modulus m are the parameters of the Rabin-Karp Rolling Hash (aka fingerprint).
+-	Fingerprint: the hash(b,m) value of a shingle, base b and modulus m are the parameters of the Rabin-Karp Rolling Hash (aka signature algorithm).
 -	Diversification: to alleviate the **locality problem** of fingerprinting, the hashes are diversified as presented in our upcoming report.<br/>
 
 the general idea is to **eliminate those test shingles that have no matching fingerprint among the reference shingles.**<br/> 
