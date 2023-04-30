@@ -27,7 +27,7 @@ its limitation is implied by the filtration ratio.
 Based on the concepts: 
 -	Shingle: the smallest information unit consists of a substring of length L that overlaps on L-1 bytes with the neighbors, like roof shingles.
 -	Fingerprint: the hash(b,m) value of a shingle, base b and modulus m are the parameters of the Rabin-Karp Rolling Hash (aka signature algorithm).
--	Diversification: to alleviate the **locality problem** of fingerprinting, the hashes are diversified as presented in our upcoming report.<br/>
+-	Diversification: to alleviate the **locality problem** of fingerprinting, the hashes are diversified as presented in [On_Finding_Common_Substrings_between_two_Large_Files](https://www.researchgate.net/publication/370411448_On_Finding_Common_Substrings_between_two_Large_Files_by_Diversified_Hashing_and_Prefix_Shingling).<br/>
 
 the general idea is to **eliminate those test shingles that have no matching fingerprint among the reference shingles.**<br/> 
 
@@ -54,15 +54,17 @@ Scatter will mark those slots that correspond to the hash value modulo m (finger
 **C) gather** <br/>
 loads the map file into RAM, reads the big test data set (N= NS-L+1 shingles) and filters the test shingles by means of the map.<br/>
 It turns out that the most time consuming operation consists in reading the map, when the fingerprints of a large amount of test shingles are checked via map against the fingerprints of the reference shingles.<br/>
-Run on an ordinary laptop, the throughput is of the order of 20 MB/s.
+Run on an ordinary laptop, the throughput is of the order of 20 MB/s.<br/>
+An output example is given in the Appendix of the long write-up:  &nbsp;
+[On_Finding_Common_Substrings_between_two_Large_Files](https://www.researchgate.net/publication/370411448_On_Finding_Common_Substrings_between_two_Large_Files_by_Diversified_Hashing_and_Prefix_Shingling).<br/>
 
 **Batchwise Processing** <br/>
 both scatter and gather distribute their workload on three threads:
 -	thread 1: reads a batch of shingles into memory (RAM)
 -	thread 2: from the shingle batch the thread produces a hash batch
 -	thread 3: the hash batch is mapped:<br/>
-  &nbsp; -	scatter (write): map slots are marked free -> occupied suggests <br/>
-  &nbsp; -	gather  (read) : map slots are checked free / occupied <br/>
+  &nbsp; -	scatter (write to map) &nbsp;&nbsp;: slots are marked &nbsp;free -> occupied <br/>
+  &nbsp; -	gather  (read from map): slots are checked free / occupied <br/>
   
 In the present implementation logical processor 3 is reserved for thread 3, which guaranties that mapping takes place within the same thread. <br/>
 
@@ -76,7 +78,9 @@ thread 1 2 3 4 5 6 7       -> stage (time) <br/>
 For example at stage 4 the threads (1,2,3) are simultaneously busy with the batches in containers (a,c,b). <br/>
 
 ### Description
-A more detailed write-up will appear soon.
+For a more detailed write-up see: &nbsp;
+[On_Finding_Common_Substrings_between_two_Large_Files](https://www.researchgate.net/publication/370411448_On_Finding_Common_Substrings_between_two_Large_Files_by_Diversified_Hashing_and_Prefix_Shingling).<br/>
+
 
 ### LICENSE
 This project is released under [CC-BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/).<br/>
